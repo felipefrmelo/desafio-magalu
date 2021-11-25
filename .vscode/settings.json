@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "asasa",
+            "database": "schedule_messages",
+            "username": "postgres",
+            "password": "postgres"
+        }
+    ]
+}

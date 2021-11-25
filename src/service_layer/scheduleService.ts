@@ -1,4 +1,4 @@
-import { CreateSchedule } from "./commands";
+import { CreateSchedule } from "../domain/commands";
 import { ScheduleRepository } from "../adapters/repository";
 import { Schedule } from "../domain/schedule";
 
