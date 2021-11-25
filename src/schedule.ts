@@ -1,4 +1,5 @@
 import { CreateSchedule } from "./commands";
+import { Channel, Status } from "./enums";
 
 export class Schedule {
   constructor(
@@ -6,8 +7,8 @@ export class Schedule {
     public recipient: string,
     public message: string,
     public scheduled_at: Date,
-    public channel: string,
-    public status: string
+    public channel: Channel,
+    public status: Status
   ) {}
 
   static create(cmd: CreateSchedule): Schedule {
@@ -17,7 +18,7 @@ export class Schedule {
       cmd.message,
       new Date(cmd.scheduled_at),
       cmd.channel,
-      "pending"
+      Status.PENDING
     );
   }
 }
