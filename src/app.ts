@@ -23,6 +23,12 @@ async function init() {
     return res.status(200).json(schedule);
   });
 
+  app.put("/schedule/:id/cancel", async (req, res) => {
+    const { id } = req.params;
+    await service.cancelSchedule(id);
+    return res.status(200).send();
+  });
+
   return app;
 }
 

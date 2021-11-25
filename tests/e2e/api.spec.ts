@@ -1,7 +1,6 @@
 import request from "supertest";
 import app from "../../src/app";
-import { v4 } from "uuid";
-import { Channel, Status } from "../../src/domain/enums";
+import { Status } from "../../src/domain/enums";
 import { makeCreateScheduleCommand } from "../utils";
 
 describe("API", () => {
@@ -23,6 +22,20 @@ describe("API", () => {
     expect(response.body).toEqual({
       ...cmd,
       status: Status.PENDING,
+    });
+  });
+
+  it("should cancel a scheduled message", async () => {
+    const cmd = makeCreateScheduleCommand();
+    await request(app).post("/schedule").send(cmd);
+    const response = await request(app).put(`/schedule/${cmd.id}/cancel`);
+    expect(response.status).toBe(200);
+
+    const scheduleCancelled = await request(app).get(`/schedule/${cmd.id}`);
+    expect(scheduleCancelled.status).toBe(200);
+    expect(scheduleCancelled.body).toEqual({
+      ...cmd,
+      status: Status.CANCELLED,
     });
   });
 });
