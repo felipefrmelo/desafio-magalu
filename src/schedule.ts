@@ -21,4 +21,8 @@ export class Schedule {
       Status.PENDING
     );
   }
+
+  cancel(): void {
+    this.status = Status.CANCELLED;
+  }
 }
