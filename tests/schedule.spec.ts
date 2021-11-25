@@ -3,7 +3,7 @@ import { Channel, Status } from "../src/enums";
 import { Schedule } from "../src/schedule";
 
 describe("Schedule", () => {
-  it("should be created with status pending", () => {
+  it("should be created schedule with status pending", () => {
     const cmd = {
       id: v4(),
       message: "Hello World",
