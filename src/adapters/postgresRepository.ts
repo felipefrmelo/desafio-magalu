@@ -1,6 +1,6 @@
 import pg from "pg";
 import fs from "fs";
-import { config } from "../../config";
+import { config } from "../config";
 import { Schedule } from "../domain/schedule";
 import { ScheduleRepository } from "./repository";
 
