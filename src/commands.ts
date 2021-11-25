@@ -1,7 +1,7 @@
 export type CreateSchedule = {
   id: string;
-  to: string;
+  recipient: string;
   message: string;
-  schedule_at: string;
+  scheduled_at: string;
   channel: string;
 };
