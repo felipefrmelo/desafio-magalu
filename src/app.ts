@@ -1,9 +1,11 @@
 import express from "express";
+import cors from "cors";
 import { newClient, PostgresRepository } from "./adapters/postgresRepository";
 import { ScheduleService } from "./service_layer/scheduleService";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 async function init() {
   const client = await newClient();
@@ -31,7 +33,7 @@ async function init() {
   return app;
 }
 
-async function start(port: number = 3000) {
+async function start(port: number = 8080) {
   await init();
   app.listen(port, () => {
     console.log("Server started on port ", port);
