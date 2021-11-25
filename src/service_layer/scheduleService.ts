@@ -1,6 +1,6 @@
 import { CreateSchedule } from "./commands";
-import { ScheduleRepository } from "./repository";
-import { Schedule } from "./schedule";
+import { ScheduleRepository } from "../adapters/repository";
+import { Schedule } from "../domain/schedule";
 
 export class ScheduleService {
   constructor(private repository: ScheduleRepository) {}

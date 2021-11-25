@@ -1,8 +1,9 @@
 import { v4 } from "uuid";
-import { Channel, Status } from "../src/enums";
-import { ScheduleRepository } from "../src/repository";
-import { Schedule } from "../src/schedule";
-import { ScheduleService } from "../src/scheduleService";
+import { Channel, Status } from "../../src/domain/enums";
+import { ScheduleRepository } from "../../src/adapters/repository";
+import { Schedule } from "../../src/domain/schedule";
+import { ScheduleService } from "../../src/service_layer/scheduleService";
+import { makeCreateScheduleCommand } from "../utils";
 
 class FakeRepository implements ScheduleRepository {
   constructor(public schedules: Schedule[] = []) {}
@@ -17,21 +18,6 @@ class FakeRepository implements ScheduleRepository {
   }
 }
 
-function makeCreateScheduleCommand(
-  id = v4(),
-  channel = Channel.SMS,
-  message = "Hello World",
-  recipient = "123456789",
-  scheduled_at = new Date().toISOString()
-) {
-  return {
-    id,
-    channel,
-    message,
-    recipient,
-    scheduled_at,
-  };
-}
 
 describe("ScheduleService", () => {
   it("should be created", () => {

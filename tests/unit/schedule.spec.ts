@@ -1,6 +1,6 @@
 import { v4 } from "uuid";
-import { Channel, Status } from "../src/enums";
-import { Schedule } from "../src/schedule";
+import { Channel, Status } from "../../src/domain/enums";
+import { Schedule } from "../../src/domain/schedule";
 
 describe("Schedule", () => {
   it("should be created schedule with status pending", () => {
