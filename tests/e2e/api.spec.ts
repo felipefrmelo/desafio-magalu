@@ -3,12 +3,17 @@ import { Express } from "express";
 import server from "../../src/app";
 import { Status } from "../../src/domain/enums";
 import { makeCreateScheduleCommand } from "../utils";
+import { disconnect, makeService } from "../../src/helper";
 
 describe("API", () => {
   let app: Express;
 
   beforeAll(async () => {
-    app = await server.init();
+    const service = await makeService();
+    app = server.init(service);
+  });
+  afterAll(async () => {
+    await disconnect();
   });
 
   it("should return 201 when schedule a message", async () => {

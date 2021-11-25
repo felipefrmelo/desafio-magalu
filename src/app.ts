@@ -1,18 +1,13 @@
 import express from "express";
 import cors from "cors";
-import { newClient, PostgresRepository } from "./adapters/postgresRepository";
 import { ScheduleService } from "./service_layer/scheduleService";
+import { makeService } from "./helper";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-async function init() {
-  const client = await newClient();
-
-  const postgresRepository = new PostgresRepository(client);
-  const service = new ScheduleService(postgresRepository);
-
+function init(service: ScheduleService) {
   app.post("/schedule", async (req, res) => {
     const { body } = req;
     await service.createSchedule(body);
@@ -34,7 +29,8 @@ async function init() {
 }
 
 async function start(port: number = 8080) {
-  await init();
+  const service = await makeService();
+  init(service);
   app.listen(port, () => {
     console.log("Server started on port ", port);
   });
