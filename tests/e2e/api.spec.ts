@@ -1,11 +1,14 @@
 import request from "supertest";
-import app from "../../src/app";
+import { Express } from "express";
+import server from "../../src/app";
 import { Status } from "../../src/domain/enums";
 import { makeCreateScheduleCommand } from "../utils";
 
 describe("API", () => {
+  let app: Express;
+
   beforeAll(async () => {
-    await app.init();
+    app = await server.init();
   });
 
   it("should return 201 when schedule a message", async () => {

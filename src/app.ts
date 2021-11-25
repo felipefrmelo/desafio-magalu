@@ -28,10 +28,14 @@ async function init() {
     await service.cancelSchedule(id);
     return res.status(200).send();
   });
-
   return app;
 }
 
-app.init = init;
+async function start(port: number = 3000) {
+  await init();
+  app.listen(port, () => {
+    console.log("Server started on port ", port);
+  });
+}
 
-export default app;
+export default { init, start };
