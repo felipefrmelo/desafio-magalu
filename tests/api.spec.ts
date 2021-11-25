@@ -14,7 +14,7 @@ describe("API", () => {
     expect(response.status).toBe(201);
   });
 
-  it("should get a scheduled message", async () => {
+  it.skip("should get a scheduled message", async () => {
     const id = v4();
     await request(app).post("/schedule").send({
       id,
