@@ -1,6 +1,6 @@
 import express from "express";
 import { ScheduleService } from "../service_layer/scheduleService";
-import { NotFoundError } from "./errors";
+import { NotFoundError } from "../service_layer/errors";
 
 const router = express.Router();
 

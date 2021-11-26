@@ -4,15 +4,15 @@ import { ScheduleService } from "../service_layer/scheduleService";
 const client = newClient();
 
 async function makeService() {
-  return client.then(async (client) => {
-    const postgresRepository = new PostgresRepository(client);
+  return client.then(async (c) => {
+    const postgresRepository = new PostgresRepository(c);
     const service = new ScheduleService(postgresRepository);
     return service;
   });
 }
 
 async function disconnect() {
-  client.then((client) => client.end());
+  return client.then((c) => c.end());
 }
 
 export { makeService, disconnect };

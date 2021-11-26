@@ -1,7 +1,7 @@
 import "express-async-errors";
 import express from "express";
 import cors from "cors";
-import { NotFoundError } from "./errors";
+import { NotFoundError } from "../service_layer/errors";
 import { routers } from "./routers";
 import { errorHandler } from "./middlewares";
 import { makeService } from "./helper";
