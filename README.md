@@ -24,7 +24,11 @@ da empresa.
    ```sh
    git clone https://github.com/felipefrmelo/desafio-magalu.git
    ```
-2. Build 
+2. Renomeie o arquivo .env.example para .env
+   ```sh
+   mv .env.example .env
+   ```
+3. Build 
    ```sh
    docker-compose build
    ```
