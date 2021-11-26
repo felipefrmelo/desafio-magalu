@@ -1,4 +1,5 @@
 import express from "express";
+import { CreateSchedule } from "../domain/commands";
 import { ScheduleService } from "../service_layer/scheduleService";
 
 const router = express.Router();
@@ -6,7 +7,8 @@ const router = express.Router();
 export function routers(service: ScheduleService) {
   router.post("/", async (req, res) => {
     const { body } = req;
-    await service.createSchedule(body);
+    const cmd = CreateSchedule.fromJson(body);
+    await service.createSchedule(cmd);
     return res.status(201).send();
   });
 

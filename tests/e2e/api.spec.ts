@@ -55,4 +55,33 @@ describe("API", () => {
       errors: [{ message: "Not found" }],
     });
   });
+
+  it("should return 400 when schedule a message with invalid parameters", async () => {
+    const response = await request(app).post("/schedule").send({});
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({
+      errors: [
+        {
+          field: "id",
+          message: "Id is required",
+        },
+        {
+          field: "recipient",
+          message: "Recipient is required",
+        },
+        {
+          field: "message",
+          message: "Message is required",
+        },
+        {
+          field: "scheduled_at",
+          message: "Scheduled_at is required",
+        },
+        {
+          field: "channel",
+          message: "Channel is required",
+        },
+      ],
+    });
+  });
 });
