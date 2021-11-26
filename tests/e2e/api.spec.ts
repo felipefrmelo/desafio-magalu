@@ -4,6 +4,7 @@ import server from "../../src/app";
 import { Status } from "../../src/domain/enums";
 import { makeCreateScheduleCommand } from "../utils";
 import { disconnect, makeService } from "../../src/helper";
+import { v4 } from "uuid";
 
 describe("API", () => {
   let app: Express;
@@ -44,6 +45,15 @@ describe("API", () => {
     expect(scheduleCancelled.body).toEqual({
       ...cmd,
       status: Status.CANCELLED,
+    });
+  });
+
+  it("should return 404  not found when get a schedule that does not exists", async () => {
+    const id = v4();
+    const response = await request(app).get(`/schedule/${id}`);
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({
+      errors: [{ message: "Not found" }],
     });
   });
 });
