@@ -10,8 +10,7 @@ describe("API", () => {
   let app: Express;
 
   beforeAll(async () => {
-    const service = await makeService();
-    app = server.init(service);
+    app = await server.init();
   });
   afterAll(async () => {
     await disconnect();
