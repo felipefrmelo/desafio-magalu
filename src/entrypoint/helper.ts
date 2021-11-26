@@ -1,5 +1,5 @@
-import { newClient, PostgresRepository } from "./adapters/postgresRepository";
-import { ScheduleService } from "./service_layer/scheduleService";
+import { newClient, PostgresRepository } from "../adapters/postgresRepository";
+import { ScheduleService } from "../service_layer/scheduleService";
 
 const client = newClient();
 

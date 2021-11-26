@@ -1,9 +1,9 @@
 import request from "supertest";
 import { Express } from "express";
-import server from "../../src/app";
+import server from "../../src/entrypoint/app";
 import { Status } from "../../src/domain/enums";
 import { makeCreateScheduleCommand } from "../utils";
-import { disconnect, makeService } from "../../src/helper";
+import { disconnect, makeService } from "../../src/entrypoint/helper";
 import { v4 } from "uuid";
 
 describe("API", () => {

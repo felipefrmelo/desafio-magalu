@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import "express-async-errors";
 import cors from "cors";
-import { ScheduleService } from "./service_layer/scheduleService";
+import { ScheduleService } from "../service_layer/scheduleService";
 import { makeService } from "./helper";
 import { CustomError, NotFoundError } from "./errors";
 

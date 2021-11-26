@@ -1,3 +1,3 @@
-import server from "./app";
+import server from "./entrypoint/app";
 
 server.start();
