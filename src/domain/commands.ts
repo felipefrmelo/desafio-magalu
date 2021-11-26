@@ -1,6 +1,6 @@
 import { FieldError, RequestValidationError } from "../service_layer/errors";
 import { Channel } from "./enums";
-import { isValidId } from "./validation";
+import { isValidId, validateCreateScheduleCommand } from "./validation";
 
 export class CreateSchedule {
   constructor(
@@ -12,46 +12,17 @@ export class CreateSchedule {
   ) {}
 
   static fromJson(json: any): CreateSchedule {
-    const cmd = new CreateSchedule(
+    const errors = validateCreateScheduleCommand(json);
+    if (errors.length > 0) {
+      throw new RequestValidationError(errors);
+    }
+
+    return new CreateSchedule(
       json.id,
       json.recipient,
       json.message,
       json.scheduled_at,
       json.channel
     );
-    const errors = cmd.validate();
-    if (errors.length > 0) {
-      throw new RequestValidationError(errors);
-    }
-    return cmd;
-  }
-
-  validate(): FieldError[] {
-    const errors: FieldError[] = [];
-
-    if (!isValidId(this.id)) {
-      errors.push({ msg: "Id is required", field: "id" });
-    }
-
-    if (!this.recipient) {
-      errors.push({ msg: "Recipient is required", field: "recipient" });
-    }
-
-    if (!this.message) {
-      errors.push({ msg: "Message is required", field: "message" });
-    }
-
-    if (!this.scheduled_at) {
-      errors.push({ msg: "Scheduled_at is required", field: "scheduled_at" });
-    }
-
-    if (!this.channel || !Channel[this.channel]) {
-      errors.push({
-        msg: `Channel is required (${Object.keys(Channel).join(", ")})`,
-        field: "channel",
-      });
-    }
-
-    return errors;
   }
 }
