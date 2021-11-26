@@ -79,9 +79,17 @@ describe("API", () => {
         },
         {
           field: "channel",
-          message: "Channel is required",
+          message: "Channel is required (SMS, EMAIL, WHATSAPP, PUSH)",
         },
       ],
+    });
+  });
+
+  it("should return 400 when get a schedule with invalid parameters", async () => {
+    const response = await request(app).get("/schedule/invalid-id");
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({
+      errors: [{ message: "Invalid id" }],
     });
   });
 });

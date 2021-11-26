@@ -1,5 +1,6 @@
 import { FieldError, RequestValidationError } from "../service_layer/errors";
 import { Channel } from "./enums";
+import { isValidId } from "./validation";
 
 export class CreateSchedule {
   constructor(
@@ -28,7 +29,7 @@ export class CreateSchedule {
   validate(): FieldError[] {
     const errors: FieldError[] = [];
 
-    if (!this.id) {
+    if (!isValidId(this.id)) {
       errors.push({ msg: "Id is required", field: "id" });
     }
 
@@ -44,8 +45,11 @@ export class CreateSchedule {
       errors.push({ msg: "Scheduled_at is required", field: "scheduled_at" });
     }
 
-    if (!this.channel) {
-      errors.push({ msg: "Channel is required", field: "channel" });
+    if (!this.channel || !Channel[this.channel]) {
+      errors.push({
+        msg: `Channel is required (${Object.keys(Channel).join(", ")})`,
+        field: "channel",
+      });
     }
 
     return errors;
