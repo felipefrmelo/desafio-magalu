@@ -35,9 +35,9 @@ da empresa.
 ```sh
 docker-compose up
 ```
-Todas as instruções para rodar o programa e os testes estão no arquivo
-[Makefile](https://github.com/felipefrmelo/desafio-magalu/blob/main/Makefile)
+Todos os comandos para rodar o programa e os testes estão no arquivo [Makefile](https://github.com/felipefrmelo/desafio-magalu/blob/main/Makefile)
 
+Para testar no Postman basta importar essa [collection](https://www.postman.com/collections/9b4b64de3bd504461c6a).
 
 
 ## License
