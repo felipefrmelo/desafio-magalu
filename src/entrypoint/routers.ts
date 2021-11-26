@@ -1,6 +1,5 @@
 import express from "express";
 import { ScheduleService } from "../service_layer/scheduleService";
-import { NotFoundError } from "../service_layer/errors";
 
 const router = express.Router();
 
@@ -14,9 +13,7 @@ export function routers(service: ScheduleService) {
   router.get("/:id", async (req, res) => {
     const { id } = req.params;
     const schedule = await service.getSchedule(id);
-    if (!schedule) {
-      throw new NotFoundError();
-    }
+
     return res.status(200).json(schedule);
   });
 

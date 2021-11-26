@@ -4,15 +4,6 @@ import { config } from "../config";
 import { Schedule } from "../domain/schedule";
 import { ScheduleRepository } from "./repository";
 
-export const newClient = async () => {
-  const client = new pg.Client(config.db);
-  const sql = fs.readFileSync("./sql/create_table_schedules.sql").toString();
-
-  await client.connect();
-  await client.query(sql);
-  return client;
-};
-
 export class PostgresRepository implements ScheduleRepository {
   constructor(private connection: pg.Client) {}
 
@@ -51,3 +42,12 @@ export class PostgresRepository implements ScheduleRepository {
     );
   }
 }
+
+export const newClient = async () => {
+  const client = new pg.Client(config.db);
+  const sql = fs.readFileSync("./sql/create_table_schedules.sql").toString();
+
+  await client.connect();
+  await client.query(sql);
+  return client;
+};
