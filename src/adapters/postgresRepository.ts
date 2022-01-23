@@ -13,20 +13,22 @@ export class PostgresRepository implements ScheduleRepository {
       [id]
     );
 
+    const schedule = result.rows[0];
+
     return result.rowCount > 0
       ? new Schedule(
-          result.rows[0].id,
-          result.rows[0].recipient,
-          result.rows[0].message,
-          new Date(result.rows[0].scheduled_at),
-          result.rows[0].channel,
-          result.rows[0].status
+          schedule.id,
+          schedule.recipient,
+          schedule.message,
+          new Date(schedule.scheduled_at),
+          schedule.channel,
+          schedule.status
         )
       : undefined;
   }
 
   async save(schedule: Schedule): Promise<void> {
-    const result = await this.connection.query(
+    await this.connection.query(
       `INSERT INTO schedules (id, message, recipient, status, channel, scheduled_at) 
       VALUES ($1, $2, $3, $4, $5, $6)
       ON CONFLICT (id)
