@@ -1,5 +1,4 @@
-import { v4 } from "uuid";
-import { Channel, Status } from "../../src/domain/enums";
+import { Status } from "../../src/domain/enums";
 import { ScheduleRepository } from "../../src/adapters/repository";
 import { Schedule } from "../../src/domain/schedule";
 import { ScheduleService } from "../../src/service_layer/scheduleService";
@@ -17,7 +16,6 @@ class FakeRepository implements ScheduleRepository {
       .concat(schedule);
   }
 }
-
 
 describe("ScheduleService", () => {
   it("should be created", () => {
