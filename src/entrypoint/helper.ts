@@ -1,18 +1,15 @@
-import { newClient, PostgresRepository } from "../adapters/postgresRepository";
+import { connection, TypeOrmRepository } from "../adapters/typeOrmRepository";
 import { ScheduleService } from "../service_layer/scheduleService";
 
-const client = newClient();
-
 async function makeService() {
-  return client.then(async (c) => {
-    const postgresRepository = new PostgresRepository(c);
-    const service = new ScheduleService(postgresRepository);
-    return service;
-  });
+  await connection.connect();
+  const typeOrmRepository = new TypeOrmRepository();
+  const service = new ScheduleService(typeOrmRepository);
+  return service;
 }
 
 async function disconnect() {
-  return client.then((c) => c.end());
+  await connection.close();
 }
 
 export { makeService, disconnect };

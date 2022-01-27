@@ -1,6 +1,6 @@
-all: down build up test
+all: down build_app up test
 
-build:
+build_app:
 	docker-compose build
 
 up:

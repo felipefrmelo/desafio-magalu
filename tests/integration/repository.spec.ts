@@ -1,38 +1,36 @@
-import pg from "pg";
 import {
-  newClient,
-  PostgresRepository,
-} from "../../src/adapters/postgresRepository";
+  connection,
+  TypeOrmRepository,
+} from "../../src/adapters/typeOrmRepository";
 import { Schedule } from "../../src/domain/schedule";
 import { makeCreateScheduleCommand } from "../utils";
 
 describe("PostgresURLRepository", () => {
-  let client: pg.Client;
-  let postgresRepository: PostgresRepository;
+  let sut: TypeOrmRepository;
 
   beforeAll(async () => {
-    client = await newClient();
+    await connection.connect();
   });
 
   afterAll(async () => {
-    await client.end();
+    await connection.close();
   });
 
   beforeEach(async () => {
-    postgresRepository = new PostgresRepository(client);
+    sut = new TypeOrmRepository();
   });
 
   afterEach(async () => {
-    await client.query("DELETE FROM schedules");
+    await connection.query("DELETE FROM schedules");
   });
 
   it("should create and find a new schedule", async () => {
     const cmd = makeCreateScheduleCommand();
     const schedule = Schedule.create(cmd);
 
-    await postgresRepository.save(schedule);
+    await sut.save(schedule);
 
-    const result = await postgresRepository.getById(schedule.id);
+    const result = await sut.getById(schedule.id);
 
     expect(result).toBeDefined();
     expect(result!.id).toBe(schedule.id);
@@ -49,9 +47,9 @@ describe("PostgresURLRepository", () => {
     const cmd = makeCreateScheduleCommand();
     const schedule = Schedule.create(cmd);
 
-    await postgresRepository.save(schedule);
+    await sut.save(schedule);
 
-    const result = await postgresRepository.getById(schedule.id);
+    const result = await sut.getById(schedule.id);
 
     if (!result) {
       throw new Error("Schedule not found");
@@ -59,9 +57,9 @@ describe("PostgresURLRepository", () => {
 
     result.cancel();
 
-    await postgresRepository.save(result);
+    await sut.save(result);
 
-    const updatedResult = await postgresRepository.getById(schedule.id);
+    const updatedResult = await sut.getById(schedule.id);
 
     expect(updatedResult!.status).toBe(result.status);
   });
