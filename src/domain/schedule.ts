@@ -1,3 +1,4 @@
+import { v4 } from "uuid";
 import { CreateSchedule } from "./commands";
 import { Channel, Status } from "./enums";
 
@@ -12,8 +13,9 @@ export class Schedule {
   ) {}
 
   static create(cmd: CreateSchedule): Schedule {
+    const id = v4();
     return new Schedule(
-      cmd.id,
+      id,
       cmd.recipient,
       cmd.message,
       new Date(cmd.scheduled_at),

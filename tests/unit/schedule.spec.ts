@@ -5,7 +5,6 @@ import { Schedule } from "../../src/domain/schedule";
 describe("Schedule", () => {
   it("should be created schedule with status pending", () => {
     const cmd = {
-      id: v4(),
       message: "Hello World",
       recipient: "42",
       channel: Channel.SMS,
@@ -13,8 +12,8 @@ describe("Schedule", () => {
     };
     const schedule = Schedule.create(cmd);
 
+    expect(schedule.id).toBeDefined();
     expect(schedule.status).toBe(Status.PENDING);
-    expect(schedule.id).toBe(cmd.id);
     expect(schedule.message).toBe(cmd.message);
     expect(schedule.recipient).toBe(cmd.recipient);
     expect(schedule.channel).toBe(cmd.channel);

@@ -11,10 +11,6 @@ export const validateCreateScheduleCommand = (
 ): FieldError[] => {
   const errors: FieldError[] = [];
 
-  if (!isValidId(cmd.id)) {
-    errors.push({ msg: "Id is required", field: "id" });
-  }
-
   if (!cmd.recipient) {
     errors.push({ msg: "Recipient is required", field: "recipient" });
   }

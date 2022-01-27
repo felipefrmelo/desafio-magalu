@@ -28,8 +28,9 @@ describe("ScheduleService", () => {
     const repository = new FakeRepository();
     const service = new ScheduleService(repository);
     const cmd = makeCreateScheduleCommand();
-    await service.createSchedule(cmd);
+    const newSchedule = await service.createSchedule(cmd);
     expect(repository.schedules.length).toBe(1);
+    expect(newSchedule.id).toBeTruthy();
   });
 
   it("should can get a schedule", async () => {
@@ -37,8 +38,8 @@ describe("ScheduleService", () => {
     const service = new ScheduleService(repository);
     const cmd = makeCreateScheduleCommand();
 
-    await service.createSchedule(cmd);
-    const schedule = await service.getSchedule(cmd.id);
+    const newSchedule = await service.createSchedule(cmd);
+    const schedule = await service.getSchedule(newSchedule.id);
     expect(schedule).toBeTruthy();
   });
 
@@ -46,11 +47,11 @@ describe("ScheduleService", () => {
     const repository = new FakeRepository();
     const service = new ScheduleService(repository);
     const cmd = makeCreateScheduleCommand();
-    await service.createSchedule(cmd);
+    const newSchedule = await service.createSchedule(cmd);
 
-    await service.cancelSchedule(cmd.id);
+    await service.cancelSchedule(newSchedule.id);
 
-    const schedule = await service.getSchedule(cmd.id);
+    const schedule = await service.getSchedule(newSchedule.id);
     expect(schedule?.status).toBe(Status.CANCELLED);
   });
 });

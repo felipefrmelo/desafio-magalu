@@ -8,8 +8,9 @@ export function routers(service: ScheduleService) {
   router.post("/", async (req, res) => {
     const { body } = req;
     const cmd = CreateSchedule.fromJson(body);
-    await service.createSchedule(cmd);
-    return res.status(201).send();
+    const newSchedule = await service.createSchedule(cmd);
+
+    return res.status(201).json(newSchedule);
   });
 
   router.get("/:id", async (req, res) => {

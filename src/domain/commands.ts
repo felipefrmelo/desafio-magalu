@@ -1,10 +1,9 @@
-import { FieldError, RequestValidationError } from "../service_layer/errors";
+import { RequestValidationError } from "../service_layer/errors";
 import { Channel } from "./enums";
-import { isValidId, validateCreateScheduleCommand } from "./validation";
+import { validateCreateScheduleCommand } from "./validation";
 
 export class CreateSchedule {
   constructor(
-    public readonly id: string,
     public readonly recipient: string,
     public readonly message: string,
     public readonly scheduled_at: string,
@@ -18,7 +17,6 @@ export class CreateSchedule {
     }
 
     return new CreateSchedule(
-      json.id,
       json.recipient,
       json.message,
       json.scheduled_at,

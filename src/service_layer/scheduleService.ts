@@ -7,9 +7,10 @@ import { isValidId } from "../domain/validation";
 export class ScheduleService {
   constructor(private repository: ScheduleRepository) {}
 
-  async createSchedule(schedule: CreateSchedule): Promise<void> {
+  async createSchedule(schedule: CreateSchedule): Promise<Schedule> {
     const newSchedule = Schedule.create(schedule);
-    return this.repository.save(newSchedule);
+    await this.repository.save(newSchedule);
+    return newSchedule;
   }
 
   async getSchedule(id: string): Promise<Schedule> {
